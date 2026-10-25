@@ -1,0 +1,434 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>CareerNest — Job Portal</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+  <!-- HOME PAGE -->
+  <div id="home-page">
+
+    <!-- Header -->
+    <header class="topbar">
+      <a class="brand" href="/">CareerNest<span>.</span></a>
+
+      <nav>
+        <a href="#jobs">Find jobs</a>
+        <a href="#post">Post a job</a>
+      </nav>
+
+      <div class="auth-actions">
+        <button class="btn btn-light" id="login-open">Log in</button>
+        <button class="btn btn-primary" id="register-open">Create account</button>
+        <button class="btn btn-light hidden" id="logout">Log out</button>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">YOUR NEXT CHAPTER STARTS HERE</p>
+
+          <h1>
+            Find work that<br>
+            <span>moves you forward.</span>
+          </h1>
+
+          <p class="hero-sub">
+            Discover opportunities, connect with teams, and take the next step in your career.
+          </p>
+
+          <div class="searchbar">
+            <input id="search" placeholder="Job title, company, or keyword">
+            <input id="location" placeholder="City or remote">
+            <button class="btn btn-primary" id="search-button">Search jobs</button>
+          </div>
+
+          <p class="microcopy">A portfolio demo • Powered by FastAPI</p>
+        </div>
+
+        <div class="hero-art">
+          <div class="art-card">
+            <div class="art-top">
+              <span class="art-dot"></span>
+              <span class="art-dot"></span>
+              <span class="art-dot"></span>
+            </div>
+
+            <div class="art-icon">✦</div>
+            <p class="art-label">YOUR CAREER, YOUR WAY</p>
+
+            <h3>
+              Make your<br>
+              next move count.
+            </h3>
+
+            <div class="art-lines">
+              <i></i>
+              <i></i>
+              <i></i>
+            </div>
+
+            <div class="art-pill">✦ New opportunities await</div>
+          </div>
+
+          <div class="floating-tag">✧ Find your fit</div>
+        </div>
+      </section>
+
+      <!-- Stats Section -->
+      <section class="stats">
+        <div>
+          <strong>Discover</strong>
+          <span>Curated opportunities</span>
+        </div>
+
+        <div>
+          <strong>Connect</strong>
+          <span>With hiring teams</span>
+        </div>
+
+        <div>
+          <strong>Grow</strong>
+          <span>Build your future</span>
+        </div>
+      </section>
+
+      <!-- Jobs Section -->
+      <section class="section" id="jobs">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">OPPORTUNITIES</p>
+            <h2>Latest job openings</h2>
+            <p class="muted">Explore roles that match your next move.</p>
+          </div>
+
+          <select id="job-type">
+            <option value="">All job types</option>
+            <option>Full-time</option>
+            <option>Part-time</option>
+            <option>Internship</option>
+            <option>Contract</option>
+          </select>
+        </div>
+
+        <div id="jobs-grid" class="jobs-grid">
+          <div class="empty">Loading jobs…</div>
+        </div>
+      </section>
+
+      <!-- Recruiter Section -->
+      <section class="section post-section" id="post">
+        <div>
+          <p class="eyebrow">FOR RECRUITERS</p>
+          <h2>Meet your next great hire.</h2>
+
+          <p class="muted">
+            Sign in as a recruiter to publish openings and review candidate applications.
+          </p>
+        </div>
+
+        <button class="btn btn-primary" id="post-job-open">
+          Post a job ↗
+        </button>
+      </section>
+
+      <!-- Footer -->
+      <footer>
+        <a class="brand" href="/">CareerNest<span>.</span></a>
+        <p>Built with FastAPI, MySQL and vanilla JavaScript.</p>
+        <a href="/docs" target="_blank">Explore API docs ↗</a>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- SEPARATE APPLICATION PAGE -->
+  <section id="application-page" class="application-page" hidden>
+    <div class="application-container">
+
+      <header class="application-header">
+        <a class="brand" href="/" id="application-brand">
+          CareerNest<span>.</span>
+        </a>
+
+        <button type="button" id="back-to-jobs" class="btn btn-light">
+          ← Back to Jobs
+        </button>
+      </header>
+
+      <div class="application-heading">
+        <p class="eyebrow">CANDIDATE APPLICATION</p>
+        <h1>Apply for this job</h1>
+        <p class="muted">
+          Complete your details and upload your resume to submit your application.
+        </p>
+
+        <div id="application-job-details" class="application-job-details">
+          Loading job details...
+        </div>
+      </div>
+
+      <form
+        id="application-form"
+        class="form-grid application-form"
+        enctype="multipart/form-data"
+      >
+        <input type="hidden" id="application-job-id">
+
+        <label>
+          Full Name *
+          <input
+            id="app-full-name"
+            name="full_name"
+            type="text"
+            minlength="2"
+            maxlength="100"
+            autocomplete="name"
+            placeholder="Enter your full name"
+            required
+          >
+        </label>
+
+        <label>
+          Email Address *
+          <input
+            id="app-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            placeholder="you@example.com"
+            required
+          >
+        </label>
+
+        <label>
+          Phone Number *
+          <input
+            id="app-phone"
+            name="phone"
+            type="tel"
+            maxlength="20"
+            autocomplete="tel"
+            placeholder="Enter phone number"
+            required
+          >
+        </label>
+
+        <label>
+          Education / Qualification *
+          <input
+            id="app-education"
+            name="education"
+            type="text"
+            maxlength="150"
+            placeholder="e.g. B.Tech, BCA, B.Sc"
+            required
+          >
+        </label>
+
+        <label class="span-two">
+          College / University *
+          <input
+            id="app-college"
+            name="college"
+            type="text"
+            maxlength="200"
+            placeholder="Enter college or university name"
+            required
+          >
+        </label>
+
+        <label class="span-two">
+          Skills *
+          <textarea
+            id="app-skills"
+            name="skills"
+            rows="3"
+            placeholder="HTML, CSS, JavaScript, Python, SQL..."
+            required
+          ></textarea>
+        </label>
+
+        <label class="span-two">
+          Experience Level *
+          <select id="app-experience" name="experience_level" required>
+            <option value="">Select experience level</option>
+            <option value="Fresher">Fresher</option>
+            <option value="Experienced">Experienced</option>
+          </select>
+        </label>
+
+        <label class="span-two">
+          Upload Resume (PDF, maximum 5 MB) *
+          <input
+            id="app-resume"
+            name="resume"
+            type="file"
+            accept=".pdf,application/pdf"
+            required
+          >
+          <small>Upload your resume as a PDF file, up to 5 MB.</small>
+        </label>
+
+        <label class="span-two">
+          Cover Letter (Optional)
+          <textarea
+            id="app-cover-letter"
+            name="cover_letter"
+            rows="4"
+            placeholder="Tell the recruiter why you are suitable for this job..."
+          ></textarea>
+        </label>
+
+        <p
+          id="application-message"
+          class="form-message span-two"
+          role="status"
+          aria-live="polite"
+        ></p>
+
+        <button
+          type="submit"
+          id="submit-application"
+          class="btn btn-primary full span-two"
+        >
+          Submit Application
+        </button>
+      </form>
+
+      <p class="application-footer-note">
+        Please check your information before submitting your application.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- Login / Register Modal -->
+  <div class="modal hidden" id="auth-modal">
+    <div class="modal-card">
+      <button type="button" class="modal-close" data-close="auth-modal">×</button>
+
+      <p class="eyebrow">WELCOME TO CAREERNEST</p>
+      <h2 id="auth-title">Log in</h2>
+
+      <form id="auth-form">
+        <label id="name-wrap" class="hidden">
+          Full name
+          <input id="auth-name" minlength="2" placeholder="Your name">
+        </label>
+
+        <label>
+          Email address
+          <input id="auth-email" type="email" required placeholder="you@example.com">
+        </label>
+
+        <label>
+          Password
+          <input
+            id="auth-password"
+            type="password"
+            required
+            minlength="8"
+            placeholder="At least 8 characters"
+          >
+        </label>
+
+        <label id="role-wrap" class="hidden">
+          Account type
+          <select id="auth-role">
+            <option value="candidate">Candidate</option>
+            <option value="recruiter">Recruiter</option>
+          </select>
+        </label>
+
+        <button type="submit" class="btn btn-primary full" id="auth-submit">
+          Log in
+        </button>
+
+        <p id="auth-message" class="form-message"></p>
+      </form>
+
+      <p class="switch-auth" id="switch-auth">
+        New here?
+        <button type="button" class="text-button" id="switch-auth-button">
+          Create an account
+        </button>
+      </p>
+    </div>
+  </div>
+
+  <!-- Recruiter Job Posting Modal -->
+  <div class="modal hidden" id="job-modal">
+    <div class="modal-card modal-wide">
+      <button type="button" class="modal-close" data-close="job-modal">×</button>
+
+      <p class="eyebrow">RECRUITER WORKSPACE</p>
+      <h2>Publish a job opening</h2>
+
+      <form id="job-form" class="form-grid">
+        <label>
+          Job title
+          <input id="job-title" required minlength="2" placeholder="e.g. Python Developer">
+        </label>
+
+        <label>
+          Company
+          <input id="job-company" required minlength="2" placeholder="Company name">
+        </label>
+
+        <label>
+          Location
+          <input id="job-location" value="Remote" required>
+        </label>
+
+        <label>
+          Job type
+          <select id="job-kind">
+            <option>Full-time</option>
+            <option>Part-time</option>
+            <option>Internship</option>
+            <option>Contract</option>
+          </select>
+        </label>
+
+        <label>
+          Salary range (optional)
+          <input id="job-salary" placeholder="e.g. ₹3–5 LPA">
+        </label>
+
+        <label class="span-two">
+          Job description
+          <textarea
+            id="job-description"
+            required
+            minlength="10"
+            rows="5"
+            placeholder="Responsibilities, skills and qualifications..."
+          ></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary full span-two">
+          Publish job
+        </button>
+
+        <p id="job-message" class="form-message span-two"></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Notification -->
+  <div class="toast hidden" id="toast"></div>
+
+  <!-- JavaScript -->
+  <script src="/static/app.js"></script>
+
+</body>
+</html>
